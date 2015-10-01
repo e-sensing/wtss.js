@@ -1,2 +1,2 @@
-# wtss.js
-Web Time Series Service for JavaScript
+# JavaScript Client API for Web Time Series Service
+
