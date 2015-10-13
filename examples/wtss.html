@@ -1,0 +1,152 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Web Time Series Service - JavaScript API Example</title>
+    <style>
+      #wtss_server_info {
+        background-color:#4682B4;
+        color:white;
+        text-align:left;
+        padding:1px;
+        width:800px;
+        float:left;
+      }
+      #coverage_metadata {
+      }
+    </style>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="../../src/js/wtss.js"></script>
+    <script type="text/javascript" src="../../src/js/tschart.js"></script>
+    <script type="text/javascript">
+
+      var wtss_server = null;
+      var coverage_meta = null;
+      
+
+      function fill_coverage_list(coverage_list) {
+
+        var coverages_combo_box = document.getElementById('coverages_combo_box');
+        coverages_combo_box.length = 0;
+
+        coverages = coverage_list.coverages;
+
+        for(cv in coverages) {
+          var option = document.createElement('option');
+          option.setAttribute('value', coverages[cv]);
+          option.appendChild(document.createTextNode(coverages[cv]));
+          coverages_combo_box.appendChild(option);
+          //console.log(coverages[cv]);
+        }
+
+        on_coverages_combo_box_selected();
+      }
+
+      function fill_coverage_metadata(cv_meta) {
+        var coverage_metadata_text = document.getElementById('coverage_metadata_text');
+
+        coverage_metadata_text.innerHTML = JSON.stringify(cv_meta);
+
+        coverage_meta = cv_meta;
+
+        var ts_start_text = document.getElementById('ts_start_text');
+        var ts_start_end = document.getElementById('ts_end_text');
+
+        ts_start_text.value = cv_meta.geo_extent.temporal.start;
+        ts_end_text.value = cv_meta.geo_extent.temporal.end;
+      }
+
+      function fill_time_series(ts) {
+        var time_series_text = document.getElementById('time_series_text');
+
+        time_series_text.innerHTML = JSON.stringify(ts);
+
+        chart = new tschart("timeseries_chart");
+
+        chart.draw(ts, coverage_meta);
+      }
+
+      function on_connect_wtss_server_button_clicked() {
+
+        var wtss_server_uri = document.getElementById('wtss_server_uri');
+
+        wtss_server = new wtss(wtss_server_uri.value);
+
+        wtss_server.list_coverages(fill_coverage_list);
+      }
+
+      function on_coverages_combo_box_selected() {
+
+        var coverages_combo_box = document.getElementById('coverages_combo_box');
+
+        var cv_name = coverages_combo_box.value;
+
+        wtss_server.describe_coverage(cv_name, fill_coverage_metadata);
+      }
+
+      function on_retrieve_ts_button_clicked() {
+
+        var latitude = document.getElementById('ts_latitude_text').value;
+        var longitude = document.getElementById('ts_longitude_text').value;
+        var start = document.getElementById('ts_start_text').value;
+        var end = document.getElementById('ts_end_text').value;
+
+        var cv_attributes = [];
+
+        for(cv_attr in coverage_meta.attributes) {
+          cv_attributes.push(coverage_meta.attributes[cv_attr].name);
+        }
+
+        wtss_server.time_series( {
+          "coverage": coverage_meta.name,
+          "attributes": cv_attributes,
+          "longitude": longitude,
+          "latitude": latitude,
+          "start": start,
+          "end": end}, fill_time_series
+        );
+      }
+  
+    </script>
+  </head>
+
+  <body>
+    <div id="wtss_server_info" width="250">
+      <fieldset>
+        <legend>Web Time Series Server</legend>
+        URI:<br>
+        <input type="url" id="wtss_server_uri" value ="http://localhost:7654" required="true">
+        <input type="button" name="connect_wtss_server_button" onclick="on_connect_wtss_server_button_clicked()" value="Go"><br>
+
+        <fieldset>
+          <legend>Select a coverage:</legend>
+          <select id="coverages_combo_box" onchange="on_coverages_combo_box_selected()"></select>
+          <div id="coverage_metadata">
+            <fieldset>
+              <legend>Coverage Metadata:</legend>
+              <div id="coverage_metadata_div">
+              <textarea id="coverage_metadata_text" type="text" readOnly="True" rows="5" cols="95" style="resize:none"></textarea>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>WTSS - Content</legend>
+          Latitude: <input type="number" id="ts_latitude_text" value="-12" maxlength="10" size="10">
+          Longitude: <input type="number" id="ts_longitude_text" value="-54" maxlength="10" size="10"><br>
+          Start: <input type="date" id="ts_start_text" min="1979-01-31" max="1979-12-31" maxlength="10" size="10">
+          End: <input type="date" id="ts_end_text" name="end" min="1979-01-31" max="1979-12-31" maxlength="10" size="10">
+          <input type="button" name="retrieve_ts_button" onclick="on_retrieve_ts_button_clicked()" value="Retrieve TS">
+          <fieldset>
+          <legend>Time Series:</legend>
+          <div id="timeseries_data">
+          <textarea id="time_series_text" type="text" readOnly="True" rows="5" cols="95" style="resize:none"></textarea>
+          </div>
+          </fieldset>
+        </fieldset>
+      </fieldset>
+    </div>
+    <div id="timeseries_chart" style="clear:both; width:1200px; height:500px">
+    </div>
+  </body>
+</html>
