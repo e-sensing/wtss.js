@@ -1,0 +1,109 @@
+{
+  "name": "mcd43a4",
+      "description": "Nadir BRDF-Adjusted Reflectance 16-Day L3 Global 500m",
+      "detail": "https://lpdaac.usgs.gov/products/modis_products_table/mcd43a4",
+      "dimensions": [
+        { "name": "col_id",
+          "description": "column",
+          "min_idx": 0,
+          "max_idx": 86399,
+          "pos": 0
+        },
+        { "name": "row_id",
+          "description": "row",
+          "min_idx": 0,
+          "max_idx": 43199,
+          "pos": 1
+        },
+        { "name": "time_id",
+          "description": "time",
+          "min_idx": 0,
+          "max_idx": 1024,
+          "pos": 2
+        }
+      ],
+      "attributes": [
+        { "name": "b1",
+          "expression": "b1",
+          "description": "Nadir_Reflectance_Band1",
+          "datatype": "16-bit signed integer",
+          "valid_range": { "min": 0, "max": 32766 },
+          "scale_factor": 0.0001,
+          "missing_value": 32767
+        },
+        { "name": "b2",
+          "expression": "b2",
+          "description": "Nadir_Reflectance_Band2",
+          "datatype": "16-bit signed integer",
+          "valid_range": { "min": 0, "max": 32766 },
+          "scale_factor": 0.0001,
+          "missing_value": 32767
+        },
+        { "name": "b3",
+          "expression": "b3",
+          "description": "Nadir_Reflectance_Band3",
+          "datatype": "16-bit signed integer",
+          "valid_range": { "min": 0, "max": 32766 },
+          "scale_factor": 0.0001,
+          "missing_value": 32767
+        },
+        { "name": "b4",
+          "expression": "b4",
+          "description": "Nadir_Reflectance_Band4",
+          "datatype": "16-bit signed integer",
+          "valid_range": { "min": 0, "max": 32766 },
+          "scale_factor": 0.0001,
+          "missing_value": 32767
+        },
+        { "name": "b5",
+          "expression": "b5",
+          "description": "Nadir_Reflectance_Band5",
+          "datatype": "16-bit signed integer",
+          "valid_range": { "min": 0, "max": 32766 },
+          "scale_factor": 0.0001,
+          "missing_value": 32767
+        },
+        { "name": "b6",
+          "expression": "b6",
+          "description": "Nadir_Reflectance_Band6",
+          "datatype": "16-bit signed integer",
+          "valid_range": { "min": 0, "max": 32766 },
+          "scale_factor": 0.0001,
+          "missing_value": 32767
+        },
+        { "name": "b7",
+          "expression": "b7",
+          "description": "Nadir_Reflectance_Band7",
+          "datatype": "16-bit signed integer",
+          "valid_range": { "min": 0, "max": 32766 },
+          "scale_factor": 0.0001,
+          "missing_value": 32767
+        }
+      ],
+      "geo_extent": {
+        "spatial": {
+          "extent": {
+            "xmin": -20015109.35400599,
+            "ymin": -10007554.676994,
+            "xmax": 20015109.35400599,
+            "ymax": 10007554.676994
+          },
+          "resolution": {
+            "x": 500,
+            "y": 500
+          },
+          "crs": "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +a=6371007.181 +b=6371007.181 +units=m +no_defs "
+        },
+        "temporal": {
+          "interval": {
+            "start": "2000-02-18",
+            "end": "2014-08-13"
+          },
+          "resolution": 16,
+          "unit": "day"
+        }
+      },
+      "from": "subarray(mcd43a4, %1%, %2%, %3%, %4%, %5%, %6%)",
+      "where": ""
+    }
+}

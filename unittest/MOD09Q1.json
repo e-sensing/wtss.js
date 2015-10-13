@@ -1,0 +1,86 @@
+{
+  "name": "MOD09Q1",
+  "description": "Surface Reflectance 8-Day L3 Global 250m",
+  "detail": "https://lpdaac.usgs.gov/products/modis_products_table/mod09q1",
+  "dimensions": [
+    { "name": "col_id",
+      "description": "column",
+      "min_idx": 0,
+      "max_idx": 172799,
+      "pos": 0
+    },
+    { "name": "row_id",
+          "description": "row",
+          "min_idx": 0,
+          "max_idx": 86399,
+          "pos": 1
+    },
+        { "name": "time_id",
+          "description": "time",
+          "min_idx": 0,
+          "max_idx": 1024,
+          "pos": 2
+        }
+      ],
+      "attributes": [
+        { "name": "red",
+          "expression": "red",
+          "description": "250m Surface Reflectance Band 1 (620-670 nm)",
+          "datatype": "16-bit signed integer",
+          "valid_range": { "min": -100, "max": 16000 },
+          "scale_factor": 0.0001,
+          "missing_value": -28672
+        },
+        { "name": "nir",
+          "expression": "nir",
+          "description": "250m Surface Reflectance Band 2 (841-876 nm)",
+          "datatype": "16-bit signed integer",
+          "valid_range": { "min": -100, "max": 16000 },
+          "scale_factor": 0.0001,
+          "missing_value": -28672
+        },
+        { "name": "quality",
+          "expression": "quality",
+          "description": "250m Reflectance Band Quality",
+          "datatype": "16-bit unsigned integer",
+          "valid_range": { "min": 0, "max": 32767 },
+          "scale_factor": 1,
+          "missing_value": 65535
+        },
+        {
+          "name": "evi2",
+          "expression": "(2.5 * ((nir - red) / (nir + 2.4 * red + 10000.0)))",
+          "description": "",
+          "datatype": "",
+          "valid_range": { "min": -100, "max": 16000 }, 
+          "scale_factor": 0.0001,
+          "missing_value": -3000
+        }
+      ],
+      "geo_extent": {
+        "spatial": {
+          "extent": {
+            "xmin": -20015109.35400599,
+            "ymin": -10007554.676994,
+            "xmax": 20015109.35400599,
+            "ymax": 10007554.676994
+          },
+          "resolution": {
+            "x": 231.65635826395825,
+            "y": 231.65635826374995
+          },
+          "crs": "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +a=6371007.181 +b=6371007.181 +units=m +no_defs "
+        },
+        "temporal": {
+          "interval": {
+            "start": "2000-02-18",
+            "end": "2014-08-13"
+          },
+          "resolution": 8,
+          "unit": "day"
+        }
+      },
+      "from": "subarray(mod09q1, %1%, %2%, %3%, %4%, %5%, %6%)",
+      "where": ""
+    }
+}
