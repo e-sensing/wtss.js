@@ -124,4 +124,3 @@ tschart.prototype.draw = function(ts, cm) {
   });
 
 };
-

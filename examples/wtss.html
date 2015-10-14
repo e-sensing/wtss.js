@@ -8,15 +8,15 @@
         color:white;
         text-align:left;
         padding:1px;
-        width:800px;
+        width:auto;
         float:left;
       }
       #coverage_metadata {
       }
     </style>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="../../src/js/wtss.js"></script>
-    <script type="text/javascript" src="../../src/js/tschart.js"></script>
+    <script type="text/javascript" src="../src/wtss.js"></script>
+    <script type="text/javascript" src="../src/tschart.js"></script>
     <script type="text/javascript">
 
       var wtss_server = null;
@@ -114,7 +114,7 @@
       <fieldset>
         <legend>Web Time Series Server</legend>
         URI:<br>
-        <input type="url" id="wtss_server_uri" value ="http://localhost:7654" required="true">
+        <input type="url" id="wtss_server_uri" value ="../unittest" required="true">
         <input type="button" name="connect_wtss_server_button" onclick="on_connect_wtss_server_button_clicked()" value="Go"><br>
 
         <fieldset>
@@ -134,8 +134,8 @@
           <legend>WTSS - Content</legend>
           Latitude: <input type="number" id="ts_latitude_text" value="-12" maxlength="10" size="10">
           Longitude: <input type="number" id="ts_longitude_text" value="-54" maxlength="10" size="10"><br>
-          Start: <input type="date" id="ts_start_text" min="1979-01-31" max="1979-12-31" maxlength="10" size="10">
-          End: <input type="date" id="ts_end_text" name="end" min="1979-01-31" max="1979-12-31" maxlength="10" size="10">
+          Start: <input type="date" id="ts_start_text" min="1979-01-31" max="1979-12-31" value="1979-01-31" maxlength="10" size="10">
+          End: <input type="date" id="ts_end_text" name="end" min="1979-01-31" max="1979-12-31" value="1979-12-31" maxlength="10" size="10">
           <input type="button" name="retrieve_ts_button" onclick="on_retrieve_ts_button_clicked()" value="Retrieve TS">
           <fieldset>
           <legend>Time Series:</legend>
