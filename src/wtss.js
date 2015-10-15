@@ -84,7 +84,9 @@ wtss.prototype.list_coverages = function(f) {
   if(!this.host)
     return;
 
-  var query_str = this.host + "/wtss/list_coverages";
+  //var query_str = this.host + "/wtss/list_coverages";
+
+  var query_str = this.host + "/list_coverages.json";
 
   wtss_get_json(query_str, f);
 };
@@ -93,7 +95,9 @@ wtss.prototype.describe_coverage = function(coverage_name, f) {
   if(!this.host || !coverage_name || !f)
     return;
 
-  var query_str = this.host + "/wtss/describe_coverage?name=" + coverage_name;
+  //var query_str = this.host + "/wtss/describe_coverage?name=" + coverage_name;
+
+  var query_str = this.host + "/../unittest/" + coverage_name + ".json";
 
   wtss_get_json(query_str, f);
 };
@@ -114,4 +118,3 @@ wtss.prototype.time_series = function(options, f) {
 
   wtss_get_json(query_str, f);
 };
-
